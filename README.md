@@ -40,24 +40,16 @@ This is the Recipe Service for the DrynkLab application. It provides gRPC endpoi
 
 2. The gRPC server will start on port 50051.
 
-## Development
+## Protocol Buffers
 
-To regenerate gRPC code after modifying the protocol buffer definition:
+This project uses Protocol Buffers for defining the gRPC service. The `.proto` file is located in `proto/recipe/recipe.proto`.
 
-```
+The Go code generated from this `.proto` file is committed to the repository for convenience and consistency. If you make changes to the `.proto` file, regenerate the Go code using:
+
+```bash
 protoc --go_out=. --go_opt=paths=source_relative \
     --go-grpc_out=. --go-grpc_opt=paths=source_relative \
     proto/recipe/recipe.proto
 ```
 
-## Testing
-
-(Add information about running tests once they are implemented)
-
-## Contributing
-
-(Add contribution guidelines if applicable)
-
-## License
-
-(Add license information)
+Ensure you have the latest version of `protoc` and the necessary Go plugins installed before regenerating.
