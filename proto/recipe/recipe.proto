@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package drynklab.recipe;
+
+option go_package = "github.com/dylanbernhardt/drynklab-recipe-service/proto/recipe";
+
+import "google/protobuf/timestamp.proto";
+
+service RecipeService {
+  rpc GetRecipe(GetRecipeRequest) returns (Recipe) {}
+  rpc ListRecipes(ListRecipesRequest) returns (ListRecipesResponse) {}
+  rpc CreateRecipe(CreateRecipeRequest) returns (Recipe) {}
+  rpc UpdateRecipe(UpdateRecipeRequest) returns (Recipe) {}
+  rpc DeleteRecipe(DeleteRecipeRequest) returns (DeleteRecipeResponse) {}
+}
+
+message GetRecipeRequest {
+  int32 id = 1;
+}
+
+message ListRecipesRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+}
+
+message ListRecipesResponse {
+  repeated Recipe recipes = 1;
+  int32 total_count = 2;
+}
+
+message CreateRecipeRequest {
+  string name = 1;
+  string instructions = 2;
+  repeated Ingredient ingredients = 3;
+}
+
+message UpdateRecipeRequest {
+  int32 id = 1;
+  Recipe recipe = 2;
+}
+
+message DeleteRecipeRequest {
+  int32 id = 1;
+}
+
+message DeleteRecipeResponse {
+  bool success = 1;
+}
+
+message Recipe {
+  int32 id = 1;
+  string name = 2;
+  string instructions = 3;
+  repeated Ingredient ingredients = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+message Ingredient {
+  int32 id = 1;
+  string name = 2;
+  float quantity = 3;
+  string unit = 4;
+}
